@@ -25,4 +25,28 @@
       }
     })
   );
+
+  // Demande de rappel : formulaire Tally (prénom, téléphone, consentement),
+  // la simulation est envoyée dans le champ caché « simulation ».
+  const TALLY_FORM = "OQ1OL8";
+  const rappel = document.querySelector("a[data-rappel]");
+  if (rappel) {
+    const tally = document.createElement("script");
+    tally.src = "https://tally.so/widgets/embed.js";
+    tally.async = true;
+    document.head.appendChild(tally);
+    rappel.addEventListener("click", (e) => {
+      const simulation = window.ptzResume || "";
+      rappel.href = `https://tally.so/r/${TALLY_FORM}?simulation=${encodeURIComponent(simulation)}`;
+      if (window.Tally && window.Tally.openPopup) {
+        e.preventDefault();
+        window.Tally.openPopup(TALLY_FORM, {
+          layout: "modal",
+          width: 460,
+          hideTitle: false,
+          hiddenFields: { simulation },
+        });
+      }
+    });
+  }
 })();
