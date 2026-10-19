@@ -64,6 +64,7 @@
       proprietaireRecent: data.get("proprietaire") === "oui",
     };
     const r = window.calculerPTZ(input);
+    window.ptzResume = resume(input, r);
 
     $("result-ok").hidden = !r.eligible;
     $("result-ko").hidden = r.eligible;
@@ -93,6 +94,28 @@
       lastKey = "";
     }
 
+  }
+
+  // Résumé de la simulation, envoyé dans la question « Votre projet » de Calendly
+  function resume(input, r) {
+    const types = {
+      neuf_collectif: "Appartement neuf",
+      neuf_individuel: "Maison neuve",
+      ancien_travaux: "Ancien avec travaux",
+      social: "Accession sociale",
+    };
+    const cp = (document.getElementById("cp") || {}).value || "";
+    const lignes = [
+      "Simulation ptz2027.fr",
+      `Logement : ${types[input.operation]}, zone ${input.zone}${cp.length === 5 ? ` (${cp})` : ""}`,
+      `Coût du projet : ${fmt(r.coutTotal)} €` + (input.travaux && input.operation === "ancien_travaux" ? ` dont ${fmt(input.travaux)} € de travaux` : ""),
+      `Foyer : ${input.personnes} personne(s), RFR ${fmt(input.rfr)} €`,
+      r.eligible
+        ? `PTZ estimé : ${fmt(r.montant)} € (tranche ${r.tranche}, différé ${r.differe} ans, puis ${fmt(r.mensualite)} €/mois pendant ${r.remboursement} ans)`
+        : "PTZ : non éligible selon le simulateur",
+    ];
+    if (input.proprietaireRecent) lignes.push("Propriétaire de sa résidence principale ces 2 dernières années");
+    return lignes.join("\n");
   }
 
   form.addEventListener("input", update);

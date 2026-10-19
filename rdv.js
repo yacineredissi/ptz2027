@@ -11,8 +11,14 @@
   js.src = "https://assets.calendly.com/assets/external/widget.js";
   js.async = true;
   document.head.appendChild(js);
+  const base = links[0].href.split("?")[0];
+  // a1 = première question du rendez-vous (« Votre projet »)
+  const urlAvecSimulation = () =>
+    window.ptzResume ? `${base}?a1=${encodeURIComponent(window.ptzResume)}` : base;
+
   links.forEach((a) =>
     a.addEventListener("click", (e) => {
+      a.href = urlAvecSimulation();
       if (window.Calendly && window.Calendly.initPopupWidget) {
         e.preventDefault();
         window.Calendly.initPopupWidget({ url: a.href });
