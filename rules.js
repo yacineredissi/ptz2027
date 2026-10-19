@@ -14,6 +14,13 @@ const PTZ_RULES = {
 
   zones: ["A", "B1", "B2", "C"], // la zone A bis suit le barème de la zone A
 
+  // Recherche de la zone par code postal (APIs publiques de l'État) :
+  // - communes d'un code postal : geo.api.gouv.fr
+  // - zonage ABC officiel par commune : jeu de données data.gouv.fr
+  //   « Liste des communes selon le zonage ABC » (version en vigueur au 26 juin 2026).
+  //   Quand une nouvelle version est publiée, remplacer l'identifiant de ressource.
+  zonageResourceId: "13f7282b-8a25-43ab-9713-8bb4e476df55",
+
   // Plafonds de ressources (revenu retenu) par zone et nombre de personnes (1 à 8+)
   plafondsRessources: {
     A:  [49000, 73500, 88200, 102900, 117600, 132300, 147000, 161700],

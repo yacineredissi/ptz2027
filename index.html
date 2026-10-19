@@ -55,6 +55,15 @@
           </div>
 
           <div class="field">
+            <label for="cp">Code postal du logement</label>
+            <div class="cp-row">
+              <input id="cp" type="text" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="Ex. 69003" aria-describedby="cp-status">
+              <select id="cp-commune" aria-label="Commune" hidden></select>
+            </div>
+            <p class="hint cp-status" id="cp-status" aria-live="polite">La zone se remplit automatiquement.</p>
+          </div>
+
+          <div class="field">
             <label for="zone">Zone du logement</label>
             <select id="zone" name="zone">
               <option value="A">Zone A ou A bis (Paris, grandes métropoles)</option>
@@ -62,7 +71,7 @@
               <option value="B2">Zone B2 (villes moyennes)</option>
               <option value="C">Zone C (reste du territoire)</option>
             </select>
-            <p class="hint">Vous ne connaissez pas votre zone ? <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R46110" target="_blank" rel="noopener">Trouvez-la avec votre commune</a>.</p>
+            <p class="hint">Vous pouvez aussi la choisir vous-même, ou la vérifier sur <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R46110" target="_blank" rel="noopener">service-public.gouv.fr</a>.</p>
           </div>
 
           <div class="field">
@@ -204,5 +213,6 @@
   <script src="rules.js"></script>
   <script src="calcul.js"></script>
   <script src="app.js"></script>
+  <script src="zone.js"></script>
 </body>
 </html>
