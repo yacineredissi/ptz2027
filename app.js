@@ -93,29 +93,6 @@
       lastKey = "";
     }
 
-    // E-mail de rappel pré-rempli avec la simulation
-    const types = {
-      neuf_collectif: "Appartement neuf",
-      neuf_individuel: "Maison neuve",
-      ancien_travaux: "Ancien avec travaux",
-      social: "Accession sociale",
-    };
-    const body = [
-      "Bonjour,",
-      "",
-      "Je souhaite être rappelé(e) au sujet de mon projet.",
-      "",
-      `Logement : ${types[operation]}, zone ${input.zone}`,
-      `Coût du projet : ${fmt(r.coutTotal)} €`,
-      `Foyer : ${input.personnes} personne(s), revenu fiscal ${fmt(input.rfr)} €`,
-      r.eligible ? `PTZ estimé : ${fmt(r.montant)} € (tranche ${r.tranche})` : "PTZ : non éligible selon le simulateur",
-      "",
-      "Mon numéro de téléphone : ",
-    ].join("\n");
-    $("cta-mail").href =
-      "mailto:contact@ptz2027.fr?subject=" +
-      encodeURIComponent("Simulation PTZ : demande de rappel") +
-      "&body=" + encodeURIComponent(body);
   }
 
   form.addEventListener("input", update);
