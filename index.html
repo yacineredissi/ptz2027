@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulateur PTZ 2027 : calculez votre prêt à taux zéro</title>
+  <meta name="description" content="Calculez en 1 minute le montant de votre prêt à taux zéro (PTZ), votre tranche, votre différé et vos mensualités. Barème officiel en vigueur jusqu'au 31 décembre 2027.">
+  <link rel="canonical" href="https://ptz2027.fr/">
+  <meta property="og:title" content="Simulateur PTZ 2027">
+  <meta property="og:description" content="Combien pouvez-vous emprunter à 0 % ? Montant, tranche, différé et mensualités du PTZ.">
+  <meta property="og:url" content="https://ptz2027.fr/">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231E5F4B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='15' text-anchor='middle' fill='%23F3F6F4'%3E0%25%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type": "Question", "name": "Qui peut bénéficier du PTZ ?", "acceptedAnswer": {"@type": "Answer", "text": "Les personnes qui n'ont pas été propriétaires de leur résidence principale au cours des 2 dernières années, dont les revenus respectent un plafond qui dépend de la zone et de la taille du foyer, et qui achètent leur future résidence principale."}},
+      {"@type": "Question", "name": "Jusqu'à quand le PTZ existe-t-il ?", "acceptedAnswer": {"@type": "Answer", "text": "Le PTZ est prorogé jusqu'au 31 décembre 2027 par la loi de finances 2025."}},
+      {"@type": "Question", "name": "Quels revenus sont pris en compte ?", "acceptedAnswer": {"@type": "Answer", "text": "Le revenu fiscal de référence de l'année N-2 de toutes les personnes qui vivront dans le logement, ou le coût total de l'opération divisé par 9 si ce montant est plus élevé."}}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">ptz<span>2027</span>.fr</a>
+    <a class="header-call" href="tel:+33636223622">06 36 22 36 22</a>
+  </header>
+
+  <main>
+    <section class="intro">
+      <h1>Combien pouvez-vous emprunter à 0&nbsp;% ?</h1>
+      <p class="lede">Le prêt à taux zéro finance jusqu'à la moitié de votre premier achat, sans intérêts. Répondez à 6 questions pour connaître votre montant, votre tranche et vos mensualités.</p>
+    </section>
+
+    <div class="sim">
+      <form id="ptz-form" class="sim-form" novalidate>
+        <fieldset>
+          <legend><span class="step">1</span>Votre projet</legend>
+
+          <div class="field">
+            <span class="label" id="op-label">Type de logement</span>
+            <div class="choices" role="radiogroup" aria-labelledby="op-label">
+              <label class="choice"><input type="radio" name="operation" value="neuf_collectif" checked><span><strong>Appartement neuf</strong><small>Immeuble collectif, VEFA</small></span></label>
+              <label class="choice"><input type="radio" name="operation" value="neuf_individuel"><span><strong>Maison neuve</strong><small>Construction ou maison en VEFA</small></span></label>
+              <label class="choice"><input type="radio" name="operation" value="ancien_travaux"><span><strong>Ancien avec travaux</strong><small>Zones B2 et C uniquement</small></span></label>
+              <label class="choice"><input type="radio" name="operation" value="social"><span><strong>Accession sociale</strong><small>PSLA, BRS, TVA réduite</small></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="zone">Zone du logement</label>
+            <select id="zone" name="zone">
+              <option value="A">Zone A ou A bis (Paris, grandes métropoles)</option>
+              <option value="B1" selected>Zone B1 (grandes agglomérations)</option>
+              <option value="B2">Zone B2 (villes moyennes)</option>
+              <option value="C">Zone C (reste du territoire)</option>
+            </select>
+            <p class="hint">Vous ne connaissez pas votre zone ? <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R46110" target="_blank" rel="noopener">Trouvez-la avec votre commune</a>.</p>
+          </div>
+
+          <div class="field">
+            <label for="prix">Prix du logement</label>
+            <div class="money"><input id="prix" name="prix" type="text" inputmode="numeric" autocomplete="off" value="250 000"><span>€</span></div>
+            <p class="hint">Frais de notaire inclus. Pour une construction : terrain + construction.</p>
+          </div>
+
+          <div class="field" id="field-travaux" hidden>
+            <label for="travaux">Montant des travaux</label>
+            <div class="money"><input id="travaux" name="travaux" type="text" inputmode="numeric" autocomplete="off" value="60 000"><span>€</span></div>
+            <p class="hint">Au moins 25 % du coût total (prix + travaux).</p>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><span class="step">2</span>Votre foyer</legend>
+
+          <div class="field">
+            <label for="personnes">Nombre de personnes qui vivront dans le logement</label>
+            <div class="stepper">
+              <button type="button" data-step="-1" aria-label="Une personne de moins">−</button>
+              <input id="personnes" name="personnes" type="number" min="1" max="12" value="2" inputmode="numeric">
+              <button type="button" data-step="1" aria-label="Une personne de plus">+</button>
+            </div>
+            <p class="hint">Enfants à naître compris.</p>
+          </div>
+
+          <div class="field">
+            <label for="rfr">Revenu fiscal de référence 2024</label>
+            <div class="money"><input id="rfr" name="rfr" type="text" inputmode="numeric" autocomplete="off" value="45 000"><span>€</span></div>
+            <p class="hint">Sur votre avis d'imposition 2025. Additionnez ceux de chaque personne du futur foyer. Pour une offre de prêt en 2027, ce sera le revenu 2025.</p>
+          </div>
+
+          <div class="field">
+            <span class="label" id="prop-label">Avez-vous été propriétaire de votre résidence principale ces 2 dernières années ?</span>
+            <div class="toggle" role="radiogroup" aria-labelledby="prop-label">
+              <label><input type="radio" name="proprietaire" value="non" checked><span>Non</span></label>
+              <label><input type="radio" name="proprietaire" value="oui"><span>Oui</span></label>
+            </div>
+          </div>
+        </fieldset>
+
+        <details class="advanced">
+          <summary>Affiner : montant de votre prêt principal</summary>
+          <div class="field">
+            <label for="autres">Montant des autres prêts immobiliers (plus de 2 ans)</label>
+            <div class="money"><input id="autres" name="autres" type="text" inputmode="numeric" autocomplete="off" placeholder="Facultatif"><span>€</span></div>
+            <p class="hint">Le PTZ ne peut pas dépasser ce montant (+25 % en tranche 1).</p>
+          </div>
+        </details>
+      </form>
+
+      <aside class="result" aria-live="polite">
+        <div id="result-ok">
+          <p class="result-label">Votre prêt à taux zéro</p>
+          <p class="amount"><span id="r-montant">0</span>&nbsp;€</p>
+          <p class="result-sub" id="r-sub"></p>
+
+          <div class="timeline" aria-hidden="true">
+            <div class="timeline-bar" id="r-bar"></div>
+            <div class="timeline-legend">
+              <span class="lg lg-differe">Différé : 0 € par mois</span>
+              <span class="lg lg-remb">Remboursement</span>
+            </div>
+          </div>
+
+          <dl class="facts">
+            <div><dt>Tranche</dt><dd id="r-tranche"></dd></div>
+            <div><dt>Différé</dt><dd id="r-differe"></dd></div>
+            <div><dt>Puis mensualité</dt><dd id="r-mensualite"></dd></div>
+            <div><dt>Durée totale</dt><dd id="r-duree"></dd></div>
+          </dl>
+          <p class="note" id="r-note"></p>
+        </div>
+
+        <div id="result-ko" hidden>
+          <p class="result-label">Pas de PTZ pour ce projet</p>
+          <ul id="r-raisons" class="reasons"></ul>
+          <p class="note">Un projet hors PTZ peut rester très finançable. Un courtier peut vous aider à trouver d'autres solutions.</p>
+        </div>
+
+        <div class="cta">
+          <p>Faites vérifier votre simulation et monter votre plan de financement complet par un courtier.</p>
+          <a class="btn" href="tel:+33636223622">Appeler le 06 36 22 36 22</a>
+          <a class="btn btn-ghost" id="cta-mail" href="mailto:contact@ptz2027.fr">Être rappelé par e-mail</a>
+        </div>
+      </aside>
+    </div>
+
+    <section class="explain">
+      <h2>Comment le PTZ est calculé</h2>
+      <div class="explain-grid">
+        <div>
+          <h3>Le revenu retenu</h3>
+          <p>C'est le plus élevé entre votre revenu fiscal de référence de l'année N-2 et le coût total de l'opération divisé par 9. Il doit rester sous un plafond qui dépend de la zone et de la taille du foyer.</p>
+        </div>
+        <div>
+          <h3>La tranche</h3>
+          <p>Le revenu retenu est divisé par un coefficient familial (1 pour une personne, 1,5 pour deux, jusqu'à 2,4 pour cinq et plus). Le résultat vous place dans l'une des 4 tranches.</p>
+        </div>
+        <div>
+          <h3>Le montant</h3>
+          <p>Il s'obtient en appliquant une quotité au coût de l'opération, lui-même limité à un plafond. La quotité va de 50 % en tranche 1 à 20 % en tranche 4, et de 30 % à 10 % pour une maison neuve.</p>
+        </div>
+        <div>
+          <h3>Le remboursement</h3>
+          <p>Plus vos revenus sont modestes, plus la durée est longue : jusqu'à 25 ans, dont 10 ans de différé pendant lesquels vous ne remboursez rien.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Questions fréquentes</h2>
+      <details>
+        <summary>Jusqu'à quand le PTZ existe-t-il ?</summary>
+        <p>Le PTZ est prorogé jusqu'au 31 décembre 2027. Un « PTZ parentalité » supplémentaire est en discussion dans le projet de loi de finances 2027 ; il n'est pas voté à ce jour et n'est pas inclus dans ce simulateur.</p>
+      </details>
+      <details>
+        <summary>Le PTZ peut-il financer seul mon achat ?</summary>
+        <p>Non. Le PTZ complète obligatoirement un autre prêt immobilier, accordé par une banque qui a signé une convention avec l'État.</p>
+      </details>
+      <details>
+        <summary>Peut-on avoir le PTZ dans l'ancien ?</summary>
+        <p>Oui, en zone B2 ou C, si les travaux représentent au moins 25 % du coût total de l'opération.</p>
+      </details>
+      <details>
+        <summary>Faut-il habiter le logement ?</summary>
+        <p>Oui. Il doit devenir votre résidence principale, occupée au moins 8 mois par an, dans l'année qui suit l'achat ou la fin des travaux.</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Simulation indicative et non contractuelle, établie selon le barème officiel du PTZ en vigueur (offres émises depuis le 1er avril 2025). L'octroi du prêt dépend de l'acceptation de votre dossier par une banque.</p>
+    <p><a href="mentions-legales.html">Mentions légales</a></p>
+  </footer>
+
+  <script src="rules.js"></script>
+  <script src="calcul.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
