@@ -6,13 +6,16 @@
 
   // Champs monétaires : chiffres seuls, espaces des milliers à la saisie
   const parse = (v) => Number(String(v).replace(/[^\d]/g, "")) || 0;
+  // Mise en forme à la sortie du champ seulement : réécrire la valeur pendant
+  // la frappe perturbe les claviers Android (curseur qui saute, chiffres perdus).
   form.querySelectorAll(".money input").forEach((input) => {
-    input.addEventListener("input", () => {
-      const pos = input.value.length - input.selectionStart;
+    input.addEventListener("focus", () => {
+      const n = parse(input.value);
+      input.value = n ? String(n) : "";
+    });
+    input.addEventListener("blur", () => {
       const n = parse(input.value);
       input.value = n ? n.toLocaleString("fr-FR") : "";
-      const p = Math.max(0, input.value.length - pos);
-      input.setSelectionRange(p, p);
     });
   });
 

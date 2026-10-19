@@ -48,7 +48,7 @@
 
   async function chercher() {
     const code = cp.value.replace(/\D/g, "").slice(0, 5);
-    cp.value = code;
+    if (cp.value !== code) cp.value = code; // ne réécrire que si nécessaire (claviers Android)
     const id = ++requestId;
     communeSel.hidden = true;
     if (code.length < 5) {
