@@ -68,12 +68,14 @@
       }
       communes.sort((a, b) => a.nom.localeCompare(b.nom, "fr"));
       if (communes.length > 1) {
-        communeSel.innerHTML = communes
-          .map((c) => `<option value="${c.code}">${c.nom}</option>`)
-          .join("");
+        communeSel.innerHTML =
+          `<option value="" selected disabled>Choisissez votre commune</option>` +
+          communes.map((c) => `<option value="${c.code}">${c.nom}</option>`).join("");
         communeSel.hidden = false;
         communeSel.onchange = () =>
           appliquer(communes.find((c) => c.code === communeSel.value), ++requestId);
+        say(`${communes.length} communes ont ce code postal : choisissez la vôtre.`);
+        return;
       }
       appliquer(communes[0], id);
     } catch (e) {
