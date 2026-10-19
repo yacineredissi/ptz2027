@@ -360,3 +360,44 @@ select:hover, .money input:hover, .stepper input:hover { border-color: var(--mut
 .legal h1 { font-family: var(--display); font-weight: 800; font-size: 2.4rem; letter-spacing: -0.03em; }
 .legal h2 { font-family: var(--display); font-weight: 700; font-size: 1.3rem; margin-top: var(--s6); }
 .todo { background: var(--amber-soft); padding: 0 0.3em; border-radius: 3px; }
+
+/* Guides */
+.article { max-width: 46rem; padding: var(--s5) var(--s4) 0; }
+main.article { margin: 0 auto; }
+.crumbs { font-size: 0.875rem; color: var(--muted); margin: 0 0 var(--s4); }
+.crumbs a { color: var(--muted); }
+.article h1 {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.02; letter-spacing: -0.03em;
+  margin: 0 0 var(--s4);
+}
+.article h2 {
+  font-family: var(--display); font-weight: 700; font-size: 1.5rem;
+  letter-spacing: -0.02em; margin: var(--s7) 0 var(--s3);
+}
+.article p, .article li { max-width: 40rem; }
+.article ul { padding-left: 1.2rem; }
+.article li { margin-bottom: var(--s2); }
+.table-wrap { overflow-x: auto; margin: var(--s4) 0; border: 1.5px solid var(--line); border-radius: var(--radius-s); background: var(--surface); }
+.table-wrap table { border-collapse: collapse; width: 100%; font-size: 0.92rem; font-variant-numeric: tabular-nums; }
+.table-wrap th, .table-wrap td { padding: var(--s2) var(--s3); text-align: left; white-space: nowrap; border-bottom: 1px solid var(--line); }
+.table-wrap th { background: var(--green-soft); font-weight: 600; }
+.table-wrap tr:last-child td { border-bottom: 0; }
+.article-cta {
+  margin: var(--s7) 0 0; padding: var(--s5);
+  background: var(--green-deep); color: #EEF4F1; border-radius: var(--radius-l);
+}
+.article-cta h2 { margin-top: 0; color: #fff; }
+.article-cta p { color: #B9CEC5; }
+.article-cta .btn { display: inline-block; margin: var(--s2) var(--s2) 0 0; }
+.guide-list a { font-weight: 600; }
+.guide-cards { list-style: none; padding: 0; display: grid; gap: var(--s3); }
+.guide-cards a {
+  display: block; padding: var(--s4) var(--s5); background: var(--surface);
+  border: 1.5px solid var(--line); border-radius: var(--radius-s);
+  text-decoration: none; color: var(--ink);
+}
+.guide-cards a:hover { border-color: var(--green); }
+.guide-cards strong { display: block; font-family: var(--display); font-size: 1.2rem; margin-bottom: var(--s1); }
+.guide-cards span { color: var(--muted); font-size: 0.95rem; }
+.updated { font-size: 0.85rem; color: var(--muted); margin-top: var(--s6); }
