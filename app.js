@@ -96,7 +96,9 @@
 
   }
 
-  // Résumé de la simulation, envoyé dans la question « Votre projet » de Calendly
+  // Résumé de la simulation, transmis à Calendly (question « Votre projet ») et à Tally
+  // (champ caché « simulation ») à l'ouverture de la fenêtre. Minimisation des données :
+  // jamais de revenu ni de montant personnel autre que le coût du projet et le PTZ estimé.
   function resume(input, r) {
     const types = {
       neuf_collectif: "Appartement neuf",
@@ -109,7 +111,7 @@
       "Simulation ptz2027.fr",
       `Logement : ${types[input.operation]}, zone ${input.zone}${cp.length === 5 ? ` (${cp})` : ""}`,
       `Coût du projet : ${fmt(r.coutTotal)} €` + (input.travaux && input.operation === "ancien_travaux" ? ` dont ${fmt(input.travaux)} € de travaux` : ""),
-      `Foyer : ${input.personnes} personne(s), RFR ${fmt(input.rfr)} €`,
+      `Foyer : ${input.personnes} personne(s)`,
       r.eligible
         ? `PTZ estimé : ${fmt(r.montant)} € (tranche ${r.tranche}, différé ${r.differe} ans, puis ${fmt(r.mensualite)} €/mois pendant ${r.remboursement} ans)`
         : "PTZ : non éligible selon le simulateur",
